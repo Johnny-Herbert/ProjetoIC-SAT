@@ -32,11 +32,27 @@ exports.solve = function(fileName) {
   }
     
   function readFormula(fileName) {
-    let fs = require('fs')
+   
     // To read the file, it is possible to use the 'fs' module. 
     // Use function readFileSync and not readFile. 
     // First read the lines of text of the file and only afterward use the auxiliary functions.
+    let fs = require('fs')
     let text = fs.readFileSync(fileName).toString(); // = ...  //  an array containing lines of text extracted from the file. 
+    let quantClauses = 0
+    let quantVariables = 0
+    let linhas = text.split('\r\n')
+    for(i = 0; i < linhas.length; i++)
+    {
+      let array = linhas[i].split(' ')
+      for(j = 0; j < array.length; j++)
+      {
+        if(array[j] == 'cnf')
+        {
+          quantVariables = array[j+1]
+          quantClauses = array[j+2]
+        }
+      }
+    }
     //aqui, vou verificar se estao com as quantidades certas
     let clauses = readClauses(text)
     let variables = readVariables(clauses)
