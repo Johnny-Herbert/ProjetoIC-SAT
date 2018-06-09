@@ -1,0 +1,9 @@
+c Exemplo simples de fórmula lógica na CNF.
+c Satisfatível
+p cnf 5 5
+1 2 3 4 5 0
+-1 -2 -3 -4 -5 0
+1 -2
+3 -4 5 0
+5 0
+-1 2 0
