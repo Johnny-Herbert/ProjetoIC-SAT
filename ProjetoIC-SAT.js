@@ -144,7 +144,7 @@ exports.solve = function(fileName) {
         {
             //como cada item da clausula é um valor de 1 a n, entao cada variavel pode ser armazenada no seu valor menos 1
             // exemplo: a variavel de valor 1 vai ser armazenada na posição 0, a de valor 2 vai ser armazenada na posição 1
-          variables[Math.abs(clauses[i][j]) - 1] = 0
+          variables[Math.abs(clauses[i][j]) - 1] = false
         }
     }
     return variables
