@@ -13,7 +13,25 @@ exports.solve = function(fileName) {
   // Receives the current assignment and produces the next one
   function nextAssignment(currentAssignment) {
     // implement here the code to produce the next assignment based on currentAssignment. 
+    let newAssignment = nextAssignmentAux(currentAssignment, currentAssignment.length - 1)
     return newAssignment
+  }
+  function nextAssignmentAux(currentAssignment, i) {
+    if(currentAssignment[i] == 0)
+    {
+        currentAssignment[i] = 1
+    }
+    else
+    {
+        currentAssignment[i] = 0
+        //esse if verifica se ele nao está na ultima casa, pq se estiver, significa que todos do array sao 1
+        //ou seja, ja foram todas as possibilidades
+        if(i != 0)
+        {           
+            return nextAssignment(currentAssignment, i - 1)
+        } 
+    }
+        return currentAssignment
   }
   
   function doSolve(clauses, assignment) {

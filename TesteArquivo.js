@@ -120,3 +120,36 @@ console.log(array)
 
 //let valor = false || true
 //console.log(valor);
+
+//------------------------------------------------------------------------------------------------------------------
+//metodo nextAssignment
+/*
+var currentAssignment = [0,0,0,0]
+console.log(currentAssignment)
+for(i = 0; i < 2 ** currentAssignment.length - 1; i++)
+{
+    var resposta = nextAssignment(currentAssignment,currentAssignment.length - 1)
+    console.log(resposta)
+}
+function nextAssignment(currentAssignment, i) {
+    // implement here the code to produce the next assignment based on currentAssignment. 
+    if(currentAssignment[i] == 0)
+    {
+        currentAssignment[i] = 1
+    }
+    else
+    {
+        currentAssignment[i] = 0
+        //esse if verifica se ele nao está na ultima casa, pq se estiver, significa que todos do array sao 1
+        //ou seja, ja foram todas as possibilidades
+        if(i != 0)
+        {           
+            return nextAssignment(currentAssignment, i - 1)
+        }
+        
+    }
+        return currentAssignment
+  }
+*/
+
+
