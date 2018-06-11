@@ -112,12 +112,12 @@ exports.solve = function(fileName) {
             if(achou)
             {
                 //verificação se chegou no final da clausula
-                if(linhas[i][j] == 0)
+                if(linhas[i][j] == 0 && linhas[i][j] != '')
                 {
                     //só zera a posição quando chegar no fim da causula pois pode ter uma clausula
                     posicao = 0
                 }
-                else
+                else if (linhas[i][j] != 0 && linhas[i][j] != '')
                 {
                     array[posicao] = linhas[i][j]
                     posicao++

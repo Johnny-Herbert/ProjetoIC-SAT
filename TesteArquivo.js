@@ -23,7 +23,7 @@
 
     /* Parte de pegar as clausulas 
     let fs = require('fs')
-    let text = fs.readFileSync('holeExtra.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
+    let text = fs.readFileSync('pieceOfHole6.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
     //faço um array onde cada posição é uma linha do documento
     let linhas = text
     //variavel para verificar se achei o cnf
@@ -36,10 +36,13 @@
     {
         linhas[i] = linhas[i].split(' ')
     }
+    //console.log(linhas)
     for(i = 0; i < linhas.length; i++)
     {
+        //console.log(linhas[i].length)
         for(j = 0; j < linhas[i].length; j++)
         {
+            
           //verifico se eu eu achei o cnf
             if(linhas[i][j] == 'cnf' && !achou)
             {
@@ -50,14 +53,17 @@
             }
             if(achou)
             {
+                //console.log("Meu valor:" + linhas[i][j])
                 //verificação se chegou no final da clausula
-                if(linhas[i][j] == 0)
+                if(linhas[i][j] == 0 && linhas[i][j] != '')
                 {
+                    //console.log("Entrei no if")
                     //só zera a posição quando chegar no fim da causula pois pode ter uma clausula
                     posicao = 0
                 }
-                else
+                else if (linhas[i][j] != 0 && linhas[i][j] != '')
                 {
+                    //console.log("Entrei no else")
                     array[posicao] = linhas[i][j]
                     posicao++
                 }
@@ -75,6 +81,7 @@
     console.log(clauses)
 //------------------------------------------------------------------------------------------------------------------------ 
  // Pegar o array de variaveis
+    
     let variables = []
     for(i = 0; i < clauses.length; i++)
     {
@@ -86,7 +93,7 @@
         }
     }
     console.log(variables)
-    */
+   */
 //--------------------------------------------------------------------------------------------------------------
 
 //let fs = require('fs')
@@ -111,5 +118,5 @@ array = array.splice(0,array.indexOf(null))
 console.log(array)
 */
 
-let valor = false || true
-console.log(valor);
+//let valor = false || true
+//console.log(valor);
