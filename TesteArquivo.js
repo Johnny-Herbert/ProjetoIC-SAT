@@ -23,7 +23,7 @@
 
     /* Parte de pegar as clausulas 
     let fs = require('fs')
-    let text = fs.readFileSync('pieceOfHole6.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
+    let text = fs.readFileSync('holeExtra.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
     //faço um array onde cada posição é uma linha do documento
     let linhas = text
     //variavel para verificar se achei o cnf
@@ -89,7 +89,7 @@
         {
             //como cada item da clausula é um valor de 1 a n, entao cada variavel pode ser armazenada no seu valor menos 1
             // exemplo: a variavel de valor 1 vai ser armazenada na posição 0, a de valor 2 vai ser armazenada na posição 1
-          variables[Math.abs(clauses[i][j]) - 1] = false
+          variables[Math.abs(clauses[i][j]) - 1] = 0
         }
     }
     console.log(variables)
@@ -131,6 +131,7 @@ for(i = 0; i < 2 ** currentAssignment.length - 1; i++)
     var resposta = nextAssignment(currentAssignment,currentAssignment.length - 1)
     console.log(resposta)
 }
+
 function nextAssignment(currentAssignment, i) {
     // implement here the code to produce the next assignment based on currentAssignment. 
     if(currentAssignment[i] == 0)
@@ -151,5 +152,73 @@ function nextAssignment(currentAssignment, i) {
         return currentAssignment
   }
 */
-
-
+/*
+let clauses1 = clauses
+let assignment = variables
+let isSat = false
+i = 0
+let arraySituacaoClauses = []
+let situacaoClauses = false
+    //must check whether this is the last assignment or not
+    while ((!isSat) && i < 2 ** assignment.length - 1) {
+      //console.log(assignment)
+        for(j = 0; j < clauses1.length; j++)
+        {
+            //console.log(clauses1[j])
+            for(k = 0; k < clauses1[j].length; k++)
+            {
+                if(clauses1[j][k] < 0)
+                {
+                    situacaoClauses = situacaoClauses || !assignment[Math.abs(clauses1[j][k]) - 1]
+                }
+                else
+                {
+                    situacaoClauses = situacaoClauses || assignment[clauses1[j][k] - 1]
+                }
+            }
+            //console.log("Situação: " + situacaoClauses)
+            arraySituacaoClauses.push(situacaoClauses)
+            //console.log("Array: " + arraySituacaoClauses)
+            situacaoClauses = false
+        }
+        isSat = true
+        // does this assignment satisfy the formula? If so, make isSat true. 
+        for(j = 0; j < arraySituacaoClauses.length; j++)
+        {
+            isSat = isSat && arraySituacaoClauses[j]
+        }
+        arraySituacaoClauses = []
+        // if not, get the next assignment and try again. 
+        if(!isSat)
+        {
+            //console.log("opa")
+            assignment = nextAssignment(assignment,assignment.length - 1)
+        }
+        i++
+    }
+    let result = {'isSat': isSat, satisfyingAssignment: null}
+    if (isSat) {
+      result.satisfyingAssignment = assignment
+    }
+    console.log(isSat)
+    console.log(assignment)
+*/
+/*
+let va = false
+va = 1 && 1
+let va1 = 1 && 0
+let va2 = 0 && 0
+let va3 = 1 || 1
+let va4 = 1 || 0
+let va5 = 0 || 0
+console.log(va)
+console.log(va1)
+console.log(va2)
+console.log(va3)
+console.log(va4)
+console.log(va5)
+if(va)
+{
+    console.log("opaa")
+}
+*/
