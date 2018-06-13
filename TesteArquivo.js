@@ -23,7 +23,7 @@
 
     /* Parte de pegar as clausulas */
     let fs = require('fs')
-    let text = fs.readFileSync('hole1.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
+    let text = fs.readFileSync('simple1.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
     //faço um array onde cada posição é uma linha do documento
     let linhas = text
     //variavel para verificar se achei o cnf
@@ -124,7 +124,7 @@ console.log(array)
 //------------------------------------------------------------------------------------------------------------------
 //metodo nextAssignment
 /**/
-var currentAssignment = [0,0,0,0,0,0,0,0,0,0]
+var currentAssignment = [0,0,0,0]
 console.log(currentAssignment)
 for(i = 0; i < 2 ** currentAssignment.length - 1; i++)
 {

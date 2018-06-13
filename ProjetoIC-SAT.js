@@ -4,8 +4,12 @@
  * 
  * Written by Fernando Castor in November/2017. 
  */
-exports.solve = function(fileName) {
-    let formula = propsat.readFormula(fileName)
+ let res = prog("hole4.cnf")
+console.log(res.isSat)
+console.log(res.satisfyingAssignment)
+
+/*exports.solve = */function prog(fileName) {
+    let formula = /*propsat.*/readFormula(fileName)
     let result = doSolve(formula.clauses, formula.variables)
     return result // two fields: isSat and satisfyingAssignment
   }
@@ -28,7 +32,7 @@ exports.solve = function(fileName) {
         //ou seja, ja foram todas as possibilidades
         if(i != 0)
         {           
-            return nextAssignment(currentAssignment, i - 1)
+            return nextAssignmentAux(currentAssignment, i - 1)
         } 
     }
         return currentAssignment
@@ -43,7 +47,6 @@ exports.solve = function(fileName) {
     //must check whether this is the last assignment or not
     //o maximo de possibilidades é 2^(tamanho do array)
     while ((!isSat) && i < 2 ** assignment.length - 1) {
-      //console.log(assignment)
       //Esses 2 fors percorrem todos os itens das clausulas
         for(j = 0; j < clauses.length; j++)
         {
@@ -63,10 +66,8 @@ exports.solve = function(fileName) {
                     situacaoClauses = situacaoClauses || assignment[clauses[j][k] - 1]
                 }
             }
-            //console.log("Situação: " + situacaoClauses)
             //Aqui eu insiro qual foi o resultado da situação de cada clausula
             arraySituacaoClauses.push(situacaoClauses)
-            //console.log("Array: " + arraySituacaoClauses)
             situacaoClauses = false
         }
         //Eu botei a variavel isSat = true, pois o valor true nao vai interferir na verificação &&
@@ -82,7 +83,6 @@ exports.solve = function(fileName) {
         // if not, get the next assignment and try again. 
         if(!isSat)
         {
-            //console.log("opa")
             assignment = nextAssignment(assignment,assignment.length - 1)
         }
         i++
@@ -96,7 +96,7 @@ exports.solve = function(fileName) {
   }
     
   function readFormula(fileName) {
-   
+    
     // To read the file, it is possible to use the 'fs' module. 
     // Use function readFileSync and not readFile. 
     // First read the lines of text of the file and only afterward use the auxiliary functions.
@@ -124,7 +124,8 @@ exports.solve = function(fileName) {
     //Procurando o cnf
     for(i = 0; i < text.length; i++)
     {
-      let array = text[i].split(' ')
+        //console.log(text[i])
+      let array = text[i]/*.split(' ')*/
       for(j = 0; j < array.length; j++)
       {
         //Quando eu achar o cnf, significa que os proximos 2 elementos do array sao as quantidades de
