@@ -35,13 +35,59 @@ exports.solve = function(fileName) {
   }
   
   function doSolve(clauses, assignment) {
+
     let isSat = false
-    while ((!isSat) && /* must check whether this is the last assignment or not*/) {
-      // does this assignment satisfy the formula? If so, make isSat true. 
-  
-      // if not, get the next assignment and try again. 
-      assignment = nextAssignment(assignment)
+    let i = 0
+    let arraySituacaoClauses = []
+    let situacaoClauses = false
+    //must check whether this is the last assignment or not
+    //o maximo de possibilidades é 2^(tamanho do array)
+    while ((!isSat) && i < 2 ** assignment.length - 1) {
+      //console.log(assignment)
+      //Esses 2 fors percorrem todos os itens das clausulas
+        for(j = 0; j < clauses.length; j++)
+        {
+            //console.log(clauses1[j])
+            for(k = 0; k < clauses[j].length; k++)
+            {
+                if(clauses[j][k] < 0)
+                {
+                    //Muda estado da variavel de acordo com o seu valor e o valor do item da clausula
+                    //Eu uso o Math.abs(clauses[j][k]) - 1 para pegar a posição em que a variavel está e em seguida pegar o valor dela
+                    situacaoClauses = situacaoClauses || !assignment[Math.abs(clauses[j][k]) - 1]
+                }
+                else
+                {
+                    //Muda estado da variavel de acordo com o seu valor e o valor do item da clausula
+                    //Eu uso o clauses[j][k] - 1 para pegar a posição em que a variavel está e em seguida pegar o valor dela
+                    situacaoClauses = situacaoClauses || assignment[clauses[j][k] - 1]
+                }
+            }
+            //console.log("Situação: " + situacaoClauses)
+            //Aqui eu insiro qual foi o resultado da situação de cada clausula
+            arraySituacaoClauses.push(situacaoClauses)
+            //console.log("Array: " + arraySituacaoClauses)
+            situacaoClauses = false
+        }
+        //Eu botei a variavel isSat = true, pois o valor true nao vai interferir na verificação &&
+        isSat = true
+        // does this assignment satisfy the formula? If so, make isSat true. 
+        //Aqui eu vou verificar qual o resultado final da operações entre as clausulas
+        for(j = 0; j < arraySituacaoClauses.length; j++)
+        {
+            isSat = isSat && arraySituacaoClauses[j]
+        }
+        //Zero o array, pois ele pode ser usado para o proximo teste, se o atual ainda nao tiver sido satisfeito
+        arraySituacaoClauses = []
+        // if not, get the next assignment and try again. 
+        if(!isSat)
+        {
+            //console.log("opa")
+            assignment = nextAssignment(assignment,assignment.length - 1)
+        }
+        i++
     }
+    
     let result = {'isSat': isSat, satisfyingAssignment: null}
     if (isSat) {
       result.satisfyingAssignment = assignment
@@ -162,7 +208,7 @@ exports.solve = function(fileName) {
         {
             //como cada item da clausula é um valor de 1 a n, entao cada variavel pode ser armazenada no seu valor menos 1
             // exemplo: a variavel de valor 1 vai ser armazenada na posição 0, a de valor 2 vai ser armazenada na posição 1
-          variables[Math.abs(clauses[i][j]) - 1] = false
+          variables[Math.abs(clauses[i][j]) - 1] = 0
         }
     }
     return variables

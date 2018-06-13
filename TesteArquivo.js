@@ -21,9 +21,9 @@
      */
     //------------------------------------------------------------------------------------------------------------------
 
-    /* Parte de pegar as clausulas 
+    /* Parte de pegar as clausulas */
     let fs = require('fs')
-    let text = fs.readFileSync('holeExtra.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
+    let text = fs.readFileSync('hole1.cnf').toString().split('\r\n'); // = ...  //  an array containing lines of text extracted from the file. 
     //faço um array onde cada posição é uma linha do documento
     let linhas = text
     //variavel para verificar se achei o cnf
@@ -93,7 +93,7 @@
         }
     }
     console.log(variables)
-   */
+   
 //--------------------------------------------------------------------------------------------------------------
 
 //let fs = require('fs')
@@ -123,8 +123,8 @@ console.log(array)
 
 //------------------------------------------------------------------------------------------------------------------
 //metodo nextAssignment
-/*
-var currentAssignment = [0,0,0,0]
+/**/
+var currentAssignment = [0,0,0,0,0,0,0,0,0,0]
 console.log(currentAssignment)
 for(i = 0; i < 2 ** currentAssignment.length - 1; i++)
 {
@@ -151,8 +151,8 @@ function nextAssignment(currentAssignment, i) {
     }
         return currentAssignment
   }
-*/
-/*
+
+/**/
 let clauses1 = clauses
 let assignment = variables
 let isSat = false
@@ -160,8 +160,10 @@ i = 0
 let arraySituacaoClauses = []
 let situacaoClauses = false
     //must check whether this is the last assignment or not
+    //o maximo de possibilidades é 2^(tamanho do array)
     while ((!isSat) && i < 2 ** assignment.length - 1) {
       //console.log(assignment)
+      //Esses 2 fors percorrem todos os itens das clausulas
         for(j = 0; j < clauses1.length; j++)
         {
             //console.log(clauses1[j])
@@ -169,24 +171,32 @@ let situacaoClauses = false
             {
                 if(clauses1[j][k] < 0)
                 {
+                    //Muda estado da variavel de acordo com o seu valor e o valor do item da clausula
+                    //Eu uso o Math.abs(clauses[j][k]) - 1 para pegar a posição em que a variavel está e em seguida pegar o valor dela
                     situacaoClauses = situacaoClauses || !assignment[Math.abs(clauses1[j][k]) - 1]
                 }
                 else
                 {
+                    //Muda estado da variavel de acordo com o seu valor e o valor do item da clausula
+                    //Eu uso o clauses[j][k] - 1 para pegar a posição em que a variavel está e em seguida pegar o valor dela
                     situacaoClauses = situacaoClauses || assignment[clauses1[j][k] - 1]
                 }
             }
             //console.log("Situação: " + situacaoClauses)
+            //Aqui eu insiro qual foi o resultado da situação de cada clausula
             arraySituacaoClauses.push(situacaoClauses)
             //console.log("Array: " + arraySituacaoClauses)
             situacaoClauses = false
         }
+        //Eu botei a variavel isSat = true, pois o valor true nao vai interferir na verificação &&
         isSat = true
         // does this assignment satisfy the formula? If so, make isSat true. 
+        //Aqui eu vou verificar qual o resultado final da operações entre as clausulas
         for(j = 0; j < arraySituacaoClauses.length; j++)
         {
             isSat = isSat && arraySituacaoClauses[j]
         }
+        //Zero o array, pois ele pode ser usado para o proximo teste, se o atual ainda nao tiver sido satisfeito
         arraySituacaoClauses = []
         // if not, get the next assignment and try again. 
         if(!isSat)
@@ -202,7 +212,7 @@ let situacaoClauses = false
     }
     console.log(isSat)
     console.log(assignment)
-*/
+
 /*
 let va = false
 va = 1 && 1
